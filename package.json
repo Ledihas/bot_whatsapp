@@ -1,0 +1,43 @@
+{
+    "name": "base-bailey-json",
+    "version": "1.0.0",
+    "description": "<p align=\"center\">   <a href=\"https://builderbot.vercel.app/\">     <picture>       <img src=\"https://builderbot.vercel.app/assets/thumbnail-vector.png\" height=\"80\">     </picture>     <h2 align=\"center\">BuilderBot</h2>   </a> </p>",
+    "main": "dist/app.js",
+    "type": "module",
+    "scripts": {
+        "start": "node ./dist/app.js",
+        "lint": "eslint . --no-ignore",
+        "dev": "npm run lint && nodemon ./src/app.ts",
+        "build": "npx rollup -c"
+    },
+    "keywords": [],
+    "dependencies": {
+        "@builderbot/bot": "1.2.2",
+        "@builderbot/provider-baileys": "1.2.2",
+        "@google/generative-ai": "^0.21.0",
+        "axios": "^1.7.7",
+        "date-fns": "^4.1.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1",
+        "node-cron": "^3.0.3",
+        "node-fetch": "^3.3.2",
+        "ollama": "^0.5.10",
+        "openai": "^4.72.0",
+        "process": "^0.11.10"
+    },
+    "devDependencies": {
+        "@types/node": "^20.17.6",
+        "@types/node-fetch": "^2.6.12",
+        "@typescript-eslint/eslint-plugin": "^7.2.0",
+        "@typescript-eslint/parser": "^7.4.0",
+        "eslint": "^8.52.0",
+        "eslint-plugin-builderbot": "latest",
+        "nodemon": "^3.1.7",
+        "rollup": "^4.10.0",
+        "rollup-plugin-typescript2": "^0.36.0",
+        "tsx": "^4.7.1",
+        "typescript": "^5.4.3"
+    },
+    "author": "",
+    "license": "ISC"
+}
