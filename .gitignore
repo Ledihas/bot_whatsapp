@@ -7,4 +7,4 @@ node_modules
 .wwebjs*
 
 *.log
-*qr.png
+qr.png

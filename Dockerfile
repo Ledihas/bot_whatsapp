@@ -24,7 +24,7 @@ WORKDIR /app
 
 ARG PORT
 ENV PORT $PORT
-EXPOSE $PORT
+EXPOSE 3009
 
 COPY --from=builder /app/assets ./assets
 COPY --from=builder /app/dist ./dist
