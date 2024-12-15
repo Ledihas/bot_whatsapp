@@ -228,7 +228,7 @@ const destinationFlow = addKeyword<Provider, Database>(['borscht'])
                 userSessions[userId].llegada
             );
             
-            if (distance !== null && distance !== 0 && distance !== undefined) {
+            if (distance !== null && distance !== 0 && distance !== undefined && !Number.isNaN(distance)) {
                 userSessions[userId].distance = distance;
                 userSessions[userId].coordenadas1 = coord1;
                 userSessions[userId].coordenadas2 = coord2;
