@@ -425,7 +425,7 @@ const pasajerosFlow = addKeyword<Provider,Database>(['borscht'])
                 await ctxfn.gotoFlow(descripcionFlow);
             } catch (error) {
                 console.error("Error en pasajerosFlow:", error);
-                await ctxfn.flowDynamic("😢Ocurrió un error al procesar la cantidad de pasajeros. Intente nuevamente.");
+                await ctxfn.flowDynamic("Ocurrió un error al procesar la cantidad de pasajeros. Intente nuevamente.");
                 await ctxfn.gotoFlow(pasajerosFlow);
             }
         });
@@ -443,14 +443,14 @@ const descripcionFlow = addKeyword<Provider,Database>(['borscht'])
                     const message = `🌈Información del usuario:\n` +
                                     `Número: ${userId}\n`+
                                     `Veiculo: ${userSessions[userId].tipoVehiculo}\n`+
-                                    `Fecha de recogida: ${userSessions[userId].fecha}\n`;
+                                    `Fecha de recogida: ${userSessions[userId].fecha}\n`+
                                     `📍Salida: ${userSessions[userId].recogida}\n` +
                                     `📍Destino: ${userSessions[userId].llegada}\n` +
                                     `⏰Hora de Salida: ${userSessions[userId].horaRecogida}\n` +
                                     `⏰Hora de Regreso: ${userSessions[userId].horaRegreso}\n` +
                                     `Cantidad de pasajeros: ${userSessions[userId].cantidad_Pasajeros}\n` +
                                     `💰Costo total: ${userSessions[userId].costoViaje} cup\n` +
-                                    `📊Descripción adicional: ${userSessions[userId].descripcionAdicional}\n` +
+                                    `📊Descripción adicional: ${userSessions[userId].descripcionAdicional}\n` ;
                                     
                     
                     await ctxfn.flowDynamic('Espere a que el chófer le escriba para la confirmación de su viaje');
@@ -477,12 +477,15 @@ const veiculosFlow = addKeyword<Provider, Database>(['borscht'])
         const input = ctx.body;
         if(input === "1"||input === "carro" || input === "Carro" || input === "CARRO" || input === "Un carro" || input === "un carro" || input === "quiero un carro"||input === "quiero carro"||input === "Quiero carro"||input === "QUIERO UN CARRO" ){
             userSessions[userId].tipoVehiculo = "carro";
+            userSessions[userId].bruto = 0
             
         }else if(input === "2"||input === "moto" || input === "Moto" || input === "MOTO" || input === "una moto" || input === "Una moto" || input === "quiero una moto"||input === "quiero moto"||input === "Quiero moto"||input === "QUIERO UNA MOTO"){
             userSessions[userId].tipoVehiculo = "moto";
+            userSessions[userId].bruto = 0
            
         }else{
             await ctxfn.flowDynamic("No entendí, sea más específico.");
+            userSessions[userId].bruto = 1
             await ctxfn.endFlow();  
             await ctxfn.gotoFlow(veiculosFlow);
             return;
@@ -490,8 +493,10 @@ const veiculosFlow = addKeyword<Provider, Database>(['borscht'])
        
     })
     .addAnswer("¿Qué día le recogemos?", { delay: 800 }, async (ctx, ctxfn) => {
-        
-        await ctxfn.gotoFlow(dateFlow); 
+        const userId = ctx.from;
+        if(userSessions[userId].bruto == 0){
+            await ctxfn.gotoFlow(dateFlow); 
+        }
     });
 
 // Función para validar el formato de fecha
