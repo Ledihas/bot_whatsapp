@@ -486,12 +486,13 @@ const veiculosFlow = addKeyword<Provider, Database>(['borscht'])
         }else{
             await ctxfn.flowDynamic("No entendí, sea más específico.");
             userSessions[userId].bruto = 1
-            await ctxfn.endFlow();  
             await ctxfn.gotoFlow(veiculosFlow);
+            ctxfn.endFlow();
             return;
         }
-       
+        
     })
+
     .addAnswer("¿Qué día le recogemos?", { delay: 800 }, async (ctx, ctxfn) => {
         const userId = ctx.from;
         if(userSessions[userId].bruto == 0){
